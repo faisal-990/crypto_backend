@@ -25,6 +25,10 @@ type Config struct {
 
 func Load() (*Config, error) {
 	_ = godotenv.Load()
+	origin := []string{
+		"http://localhost:5173",
+		"http://localhost:5174",
+	}
 
 	cacheTTL := getEnvAsInt("CACHE_TTL_SECONDS", 300)  // Default 5 minutes for dev
 	marketLimit := getEnvAsInt("MARKET_DATA_LIMIT", 5) // Default 5 coins for dev
@@ -36,6 +40,7 @@ func Load() (*Config, error) {
 		CoinGeckoAPIKey:  getEnv("COINGECKO_API_KEY", ""),
 		CacheTTLSeconds:  cacheTTL,
 		MarketDataLimit:  marketLimit,
+		AllowedOrigins:   origin,
 	}
 	return cfg, nil
 }

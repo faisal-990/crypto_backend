@@ -50,6 +50,7 @@ type CoinGeckoMarketResponse struct {
 }
 
 func (s *Service) GetTopMarketData() ([]CoinMarket, error) {
+
 	if cached, found := s.cache.Get("market"); found {
 		return cached.([]CoinMarket), nil
 	}
@@ -62,7 +63,7 @@ func (s *Service) GetTopMarketData() ([]CoinMarket, error) {
 	q.Set("vs_currency", "usd")
 	q.Set("order", "market_cap_desc")
 	q.Set("per_page", fmt.Sprintf("%d", s.cfg.MarketDataLimit))
-	q.Set("page", "1")
+	//q.Set("page", "1")
 	q.Set("sparkline", "true")
 	req.URL.RawQuery = q.Encode()
 	if s.cfg.CoinGeckoAPIKey != "" {
